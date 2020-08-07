@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {});
+
+    var origin = board.create('point', [0, 0], {visible: false, name: "0"});
+
+    var pA = board.create('point', [-2, 3], {name: 'A', withLabel: false, fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+    var pB = board.create('point', [3, 1], {name: 'B', withLabel: false, fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+    var pNegB = board.create('point', [function() {return -pB.X();}, function() {return -pB.Y();}], {name: 'B', withLabel: false, fillColor: "blue", highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+
+    var pSum = board.create('point', [function() {return pA.X() + pNegB.X();}, function() {return pA.Y() + pNegB.Y();}], {name: 'C', withLabel: false, fillColor: "blue", highlight: true});
+
+    var vA = board.create("arrow", [origin, pA], {name: "\\[\\vec{a}\\]", withLabel: true, label: {position: "top"}, strokeOpacity: 0.5});
+    var vB = board.create("arrow", [origin, pB], {name: "\\[\\vec{b}\\]", withLabel: true, label: {position: "top"}, strokeOpacity: 0.5});
+    var vNegB = board.create("arrow", [origin, pNegB], {name: "\\[\\texttt{-} \\vec{b}\\]", withLabel: true, label: {position: "top", strokeColor: "blue"}, dash: 2, strokeOpacity: 0.3, strokeColor: "blue"});
+
+    // var vASum = board.create("arrow", [pA, pSum], {name: "\\[\\vec{b}\\]", withLabel: false, label: {position: "top"}, dash: 2, strokeOpacity: 0.3, strokeColor: "blue"});
+    var vNegBSum = board.create("arrow", [pNegB, pSum], {name: "\\[\\vec{a}\\]", withLabel: false, label: {position: "top"}, dash: 2, strokeOpacity: 0.3, strokeColor: "blue"});
+    var vBA = board.create("arrow", [pB, pA], {strokeOpacity: 0.3, strokeColor: "blue"});
+    var vSum = board.create("arrow", [origin, pSum], {name: "\\[\\overrightarrow{a\\texttt{-}b}\\]", withLabel: true, label: {position: "top", strokeColor: "blue"}, strokeOpacity: 0.6, strokeColor: "blue"});
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

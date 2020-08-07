@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {
+    	boundingbox:[-2.6, 2.6, 2.6, -2.6],
+    });
+
+    var sliderL = board.create('slider', [[-1.5, -2.2], [1.5, -2.2], [-4, 0.8, 4]], {withLabel: true, name: "λ", fixed: false, highlight: true, snapWidth: 0.20});
+
+    var l1A = board.create('point', [.5, -1], {name: 'A', fixed: false, highlight: true, snapSizeX: 1/4, snapSizeY: 1/4, snapToGrid: true});
+    var l1B = board.create('point', [1.5, 1.5], {name: 'B', fixed: false, highlight: true, snapSizeX: 1/20, snapSizeY: 1/20, snapToGrid: true});
+    var lConstructed = board.create('line', [l1A, l1B]);
+
+    /* Group A and B, but allow A to move independently. */
+    var grp = board.create('group', [l1A, l1B]);
+    grp.removeTranslationPoint(l1B);
+
+    var vA = board.create("arrow", [[0, 0], l1A], {name: "\\[\\vec{a}\\]", withLabel: true, label: {position: "top"}});
+    var vAB = board.create("arrow", [l1A, l1B], {name: "\\[\\overrightarrow{b\\texttt{-}a}\\]", withLabel: true, label: {position: "top"}});
+
+    var pL = board.create('point', [function() {return JSX_interpolateX(l1A, l1B, sliderL.Value());}, function() {return JSX_interpolateY(l1A, l1B, sliderL.Value());}],
+        {name: '', fillColor: "blue", highlight: true});
+    var vL = board.create("arrow", [[0, 0], pL], {name: '', withLabel: true, label: {position: "top"}, strokeColor: "blue"});
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

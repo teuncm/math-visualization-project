@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teun's math applets</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <div class="container-fluid">
+        <h1>Teun's math applets</h1>
+        <div id="playgroundList"></div>
+    </div>
+
+    <script>
+        var fileNames = "circle_radian.html circle_tangent.html circle_twopi.html circle_unit.html construction_circle.html construction_cosine.html construction_derivative.html construction_line_function.html construction_line_normal.html construction_line_vector.html construction_sine.html distance_circle.html distance_line.html integral_two_functions.html intersection_line_circle.html intersection_line_line.html parametric_point.html parametric_velocity.html sine_solutions.html vector_addition.html vector_angle.html vector_com.html vector_decomposition.html vector_scalar.html vector_subtraction.html";
+
+        var listEl = document.getElementById("playgroundList");
+
+        listEl.innerHTML += "<ul>";
+        for(fileName of fileNames.split(" ")) {
+            listEl.innerHTML += "<li><a href=interactive/" + fileName + ">"  + fileName + "</a></li>";
+        }
+        listEl.innerHTML += "</ul>";
+    </script>
+</body>
+</html>

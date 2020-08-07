@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {});
+
+    var origin = board.create('point', [0, 0], {visible: false, name: "0"});
+
+    var pA = board.create('point', [4, 3], {withLabel: false, fixed: false, highlight: true, snapSizeX: 1/20, snapSizeY: 1/20, snapToGrid: true});
+
+    var vA = board.create("arrow", [origin, pA], {name: "\\[\\vec{a}\\]", withLabel: true, label: {position: "top"}, strokeOpacity: 0.5});
+
+    var pX = board.create('point', [function() {return pA.X();}, 0], {withLabel: false, highlight: true, fillColor: "blue"});
+    var pY = board.create('point', [0, function() {return pA.Y();}], {withLabel: false, highlight: true, fillColor: "blue"});
+
+    var vX = board.create("arrow", [origin, pX], {name: "\\[\\vec{a_1}\\]", withLabel: true, label: {position: "top", offset: [0, 30], strokeColor: "blue"}, strokeOpacity: 0.5, strokeColor: "blue"});
+    var vY = board.create("arrow", [origin, pY], {name: "\\[\\vec{a_2}\\]", withLabel: true, label: {position: "top", strokeColor: "blue"}, strokeOpacity: 0.5, strokeColor: "blue"});
+
+    var sX = board.create('segment', [pA, pX], {withLabel: false, dash: 2, opacity: 0.3});
+    var sY = board.create('segment', [pA, pY], {withLabel: false, dash: 2, opacity: 0.3});
+
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

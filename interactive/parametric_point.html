@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {});
+
+    var origin = board.create('point', [0, 0], {visible: false, name: "0"});
+
+    var sliderT = board.create('slider', [[-3.8, -5], [3.8, -5], [0, 0, 2*Math.PI]], {withLabel: true, name: "t", fixed: false, highlight: true});
+
+    var r_t = board.create('curve', [x_t, y_t,
+        0, 2*Math.PI], {strokeOpacity: 0.3}
+    );
+
+    var pRt = board.create("point", [function() {return x_t(sliderT.Value());}, function() {return y_t(sliderT.Value());}], {name: "P", visible: true, fillColor: "black", highlight: true})
+
+    var vX = board.create("arrow", [origin, [function() {return x_t(sliderT.Value());}, 0]],
+        {name: "\\[x(t)\\]", withLabel: true, label: {position: "top", offset: [0, 30], strokeColor: "red"}, strokeOpacity: 0.4, strokeColor: "red"});
+    var vY = board.create("arrow", [origin, [0, function() {return y_t(sliderT.Value());}]],
+        {name: "\\[y(t)\\]", withLabel: true, label: {position: "top", strokeColor: "blue"}, strokeOpacity: 0.4, strokeColor: "blue"});
+
+    var sX = board.create('segment', [pRt, [function() {return x_t(sliderT.Value());}, 0]], {withLabel: false, dash: 2, opacity: 0.3});
+    var sY = board.create('segment', [pRt, [0, function() {return y_t(sliderT.Value());}]], {withLabel: false, dash: 2, opacity: 0.3});
+
+};
+
+var x_t = function(t) {
+    return 3*Math.sin(t);
+}
+
+var x_p_t = function(t) {
+    return 3*Math.cos(t);
+}
+
+var y_t = function(t) {
+    return 2*Math.sin(2*t) + 1;
+}
+
+var y_p_t = function(t) {
+    return 4*Math.cos(2*t);
+}
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

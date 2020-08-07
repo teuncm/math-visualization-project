@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    JXG.Options.axis.strokeOpacity = 0.1;
+
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {
+    	boundingbox:[-1.2, 1.2, 1.2, -1.2],
+    });
+
+    var rUnit = 1;
+
+    var origin = board.create('point', [0, 0], {visible: false, name: "0"});
+    var cUnit = board.create('circle', [origin, rUnit], {strokeColor: "black"});
+
+    var initAngle = 1;
+    
+    var pA = board.create('glider', [Math.cos(initAngle), Math.sin(initAngle), cUnit], {name: 'A', highlight: true, fillColor: "blue"});
+    var pReference = board.create('point', [1, 0], {visible: false});
+
+    var sHypotenuse = board.create('segment', [origin, pA], {name: "1", withLabel: true, label: {offset: [-20, 0]}, opacity: 1});
+
+    var theta = board.create('angle', [pReference, origin, pA], {name: "1", radius: 0.15, withLabel: true, orthoType: "sector", fillOpacity: 0, strokeColor: "blue"});
+    var arc1 = board.create('arc', [origin, pReference, pA], {name: "1", withLabel: true, label: {position: "top", offset: [-4, -2], strokeColor: "blue"}, strokeColor: "blue", strokeOpacity: 1, lastArrow: {type: 2, size: 8}});
+
+    var sRef = board.create('segment', [origin, pReference], {name: "", withLabel: true, opacity: 0.4, dash: 2});
+
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

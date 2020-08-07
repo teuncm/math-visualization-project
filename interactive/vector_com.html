@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {});
+
+    var origin = board.create('point', [0, 0], {visible: false, name: "0"});
+
+    var sliderWA = board.create('slider', [[-3, -4.5], [3, -4.5], [0, 1, 2]], {withLabel: true, name: "Wa", fixed: false, highlight: true, snapWidth: 0.1});
+    var sliderWB = board.create('slider', [[-3, -5], [3, -5], [0, 1, 2]], {withLabel: true, name: "Wb", fixed: false, highlight: true, snapWidth: 0.1});
+    var sliderWC = board.create('slider', [[-3, -5.5], [3, -5.5], [0, 1, 2]], {withLabel: true, name: "Wc", fixed: false, highlight: true, snapWidth: 0.1});
+
+    var pA = board.create('point', [2.5, -3.5], {withLabel: true, fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+    var pB = board.create('point', [3, 4], {withLabel: true, fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+    var pC = board.create('point', [-4, 3], {withLabel: true, fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+
+    var pCoM = board.create('point', [
+        function() {return JSX_CoMX([pA, pB, pC], [sliderWA.Value(), sliderWB.Value(), sliderWC.Value()]);},
+        function() {return JSX_CoMY([pA, pB, pC], [sliderWA.Value(), sliderWB.Value(), sliderWC.Value()]);}],
+        {name: "\\[M\\]", withLabel: true, label: {position: "top", offset: [10, 30]}, fillColor: "blue", highlight: true});
+
+    var sAB = board.create('segment', [pA, pB], {color: "black", strokeOpacity: 0.3});
+    var sBC = board.create('segment', [pB, pC], {color: "black", strokeOpacity: 0.3});
+    var sCA = board.create('segment', [pC, pA], {color: "black", strokeOpacity: 0.3});
+
+    var sACoM = board.create('segment', [pA, pCoM], {color: "blue", dash: 2, strokeOpacity: 0.3});
+    var sBCoM = board.create('segment', [pB, pCoM], {color: "blue", dash: 2, strokeOpacity: 0.3});
+    var sCCoM = board.create('segment', [pC, pCoM], {color: "blue", dash: 2, strokeOpacity: 0.3});
+
+    var vSum = board.create("arrow", [origin, pCoM], {strokeColor: "blue", strokeOpacity: 1});
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

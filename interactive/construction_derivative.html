@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {});
+
+    var eps = 0.02
+
+    var func = board.create('functiongraph',
+        [function(x){return (-0.3*x*x*x) + (0.1*x*x) + 3*x;}, -6, 6]);
+
+    /* pA is (x, f(x)). */
+    var pA = board.create('glider', [0, 0, func], {name: 'A', fixed: false, highlight: true, snapSizeX: 1/20, snapSizeY: 1/20, snapToGrid: true});
+
+    /* The slider controls the dx offset. */
+    var sliderDx = board.create('slider', [[-3, -5], [3, -5], [-3, 2, 3]], {name: "Δx", withLabel: true, fixed: false, highlight: true, snapWidth: 0.2});
+    var pDx = board.create('point', [function() {return pA.X() + sliderDx.Value() + eps;}, function() {return pA.Y();}], {visible: false});
+
+    /* pB is (x+dx, f(x+dx)). */
+    var lVertical = board.create('line', [function() {return -pDx.X();}, 1, 0], {visible: false});
+    var pB = board.create('intersection', [lVertical, func, 0], {name: "B", visible: true, highlight: true, fillColor: "cyan"});
+
+    /* Graphically display the actual dx and dy. */
+    var sDx = board.create('segment', [pA, pDx], {name: "Δx", withLabel: true, strokeOpacity: 0.4});
+    var sDy = board.create('segment', [pDx, pB], {name: "Δy", withLabel: true, strokeOpacity: 0.4});
+
+    var slopeLine = board.create('line', [pA, pB], {name: (function() {return this.getSlope().toFixed(2);}), visible: true, strokeColor: "red", withLabel: true, label: {strokeColor: "red"}});
+
+    /* Old slope update function. */
+    // board.on("update", updateSlope.bind(null, slopeLine));
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

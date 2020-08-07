@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {});
+
+    var origin = board.create('point', [0, 0], {visible: false, name: "0"});
+
+    // var sliderC = board.create('slider', [[-3.5, -5], [3.5, -5], [0, 1, 10]], {withLabel: true, name: "c", fixed: false, highlight: true, snapWidth: 0.5});
+
+    var funcF = board.create('functiongraph',
+        [f, -6, 6]);
+    var funcG = board.create('functiongraph',
+        [g, -6, 6]);
+
+    var lHorizontal = board.create('line', [0, 0, 1], {visible: false});
+
+    var pA = board.create('glider', [-3, 0, lHorizontal], {name: 'a', fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+    var pB = board.create('glider', [-1, 0, lHorizontal], {name: 'b', fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+
+    var integral = board.create('riemannsum', [[g, f], 100, 'middle',
+        (function() {return Math.min(pA.X(), pB.X());}), (function() {return pB.X();})], {});
+
+};
+
+var f = function(x) {
+    return 1/64*x*x*x + 1;
+}
+
+var g = function(x) {
+    return x;
+}
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

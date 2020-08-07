@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    JXG.Options.axis.strokeOpacity = 0.1;
+
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {
+    	boundingbox:[-1.2, 1.2, 1.2, -1.2],
+    });
+
+    var rUnit = 1;
+
+    var origin = board.create('point', [0, 0], {visible: false, name: "0"});
+    var cUnit = board.create('circle', [origin, rUnit], {strokeColor: "black", fillOpacity: 0});
+
+    var initAngle = Math.PI / 4 * 3 + 0.2;
+    var pA = board.create('glider', [Math.cos(initAngle), Math.sin(initAngle), cUnit], {name: 'A', fixed: false, highlight: true, label: {position: "top", offset: [-30, 12]}});
+    var pReference = board.create('point', [1, 0], {visible: false});
+
+    var sHypotenuse = board.create('segment', [pA, origin], {name: "1", withLabel: true, opacity: 0.4, label: {position: "bot"}});
+
+    /* Offsets of special angles within a quarter. */
+    var angleOffsets = [0, Math.PI/6, Math.PI/4, Math.PI/3];
+
+    /* Mark the special angle positions per quarter. */
+    for(var quarter = 0; quarter < 4; quarter++) {
+        var curAngle = Math.PI/2 * quarter;
+
+        for (curOffset of angleOffsets) {
+            specialTheta = curAngle + curOffset;
+            var pSpecial = board.create('point', [myRound(Math.cos(specialTheta), 3), myRound(Math.sin(specialTheta), 3)],
+                {size: 0.4, withLabel: false, visible: false, fillColor: "black", highlight: true});
+
+            board.create('segment', [origin, pSpecial], {withLabel: false, dash: 1, opacity: 0.3, strokeWidth: 1, strokeColor: "blue"});
+        }
+    }
+
+    var theta = board.create('angle', [pReference, origin, pA], {name: "θ", radius: 0.15, withLabel: true, orthoType: "sector", fillOpacity: 0, strokeColor: "blue"});
+    var arc1 = board.create('arc', [origin, pReference, pA], {strokeColor: "blue", strokeOpacity: 1, lastArrow: {type: 2, size: 8}});
+
+    var pX = board.create('point', [function() {return Math.cos(theta.Value());}, 0], {withLabel: false, fillColor: "black", highlight: true, visible: true});
+    var pY = board.create('point', [0, function() {return Math.sin(theta.Value());}], {withLabel: false, fillColor: "black", highlight: true, visible: true});
+    var sSin = board.create('segment', [pA, pX], {name: "\\[sin(θ)\\]", withLabel: true, opacity: 0.3});
+    var sCos = board.create('segment', [pX, origin], {name: "\\[cos(θ)\\]", withLabel: true, label: {position: "top", offset: [-5, 1]}, opacity: 0.3});
+    var sSin2 = board.create('segment', [pA, pY], {withLabel: false, dash: 2, opacity: 0.3});
+    var sCos2 = board.create('segment', [pY, origin], {withLabel: false, dash: 2, opacity: 0.3});
+
+    var rightAngle = board.create('nonreflexangle', [pA, pX, origin], {withLabel: false, radius: 0.08, fillOpacity: 0});
+
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

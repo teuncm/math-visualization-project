@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {});
+
+    var l1A = board.create('point', [0, -4], {name: 'A', fixed: false, highlight: true, snapSizeX: 1/2, snapSizeY: 1/2, snapToGrid: true});
+    var l1B = board.create('point', [-1, -3], {name: 'B', fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+    var l1 = board.create('line', [l1A, l1B]);
+
+    /* Group A and B, but allow A to move independently. */
+    var grp = board.create('group', [l1A, l1B]);
+    grp.removeTranslationPoint(l1B);
+
+    // var vA = board.create("arrow", [[0, 0], l1A]);
+    var vAB = board.create("arrow", [l1A, l1B]);
+
+    var l1C = board.create('point', [-4, -4], {name: 'C', fixed: false, highlight: true, snapSizeX: 1/2, snapSizeY: 1/2, snapToGrid: true});
+    var l1D = board.create('point', [-4, -3], {name: 'D', fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+    var l2 = board.create('line', [l1C, l1D]);
+
+    /* Group C and D, but allow C to move independently. */
+    var grp = board.create('group', [l1C, l1D]);
+    grp.removeTranslationPoint(l1D);
+
+    // var vA = board.create("arrow", [[0, 0], l1C]);
+    var vAB = board.create("arrow", [l1C, l1D]);
+
+    var i1 = board.create('intersection', [l1, l2, 0], {name: "E", highlight: true, fillColor: "cyan"});
+    var a1 = board.create('nonreflexangle', [l1B, i1, l1D], {radius: 0.8, withLabel: false});
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

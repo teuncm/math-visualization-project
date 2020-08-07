@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {
+    	boundingbox:[-2.6, 2.6, 2.6, -2.6],
+    });
+
+    var unit_r = 1
+
+    var origin = board.create('point', [0, 0], {visible: false, name: "0"});
+    var cUnit = board.create('circle', [origin, unit_r], {dash: 2, strokeColor: "black", opacity: 0});
+
+    var sliderC = board.create('slider', [[-1.5, -2.2], [1.5, -2.2], [-2, 0, 2]], {withLabel: true, name: "c", fixed: false, highlight: true, snapWidth: 0.25});
+
+    var pN = board.create('glider', [1, 2, cUnit], {name: '', fixed: false, highlight: true, snapSizeX: 1/20, snapSizeY: 1/20, snapToGrid: true});
+
+    /* ax + by + c = 0 => ax + by = -c. */
+    var lConstructed = board.create('line', [function() {return -sliderC.Value();}, function() {return pN.X();}, function() {return pN.Y();}]);
+
+    var lN = board.create('line', [origin, pN], {strokeColor: "black", dash: 2, opacity: 0.3});
+    var a1 = board.create('angle', [lN, lConstructed, 1, 1], {withLabel: false, radius: 0.25, fillOpacity: 0});
+    var vN = board.create("arrow", [origin, pN], {name: "\\[\\vec{n}\\]", withLabel: true, label: {position: "top"}});
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

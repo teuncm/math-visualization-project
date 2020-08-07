@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {
+    	boundingbox:[-2.6, 2.6, 2.6, -2.6],
+    });
+
+    var origin = board.create('point', [0, 0], {visible: false, name: "0"});
+
+    var pVertical = board.create('point', [0, 1], {visible: false});
+    var lV = board.create('line', [origin, pVertical], {visible: false});
+    var sliderA = board.create('slider', [[-1.5, -2.2], [1.5, -2.2], [-5, 0.5, 5]], {withLabel: true, name: "m", fixed: false, highlight: true, snapWidth: 0.25});
+
+    var pB = board.create('glider', [0, 0, lV], {name: '', fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true, label: {offset: [-20, 5]}});
+
+    /* ax + y + c = 0 => y = -ax - c. */
+    var lConstructed = board.create('line', [function() {return -pB.Y();}, function() {return -sliderA.Value();}, 1]);
+
+    var sB = board.create('segment', [origin, pB], {name: "b", withLabel: true, strokeColor: "black", dash: 1, opacity: 1, lastArrow: {type: 2, size: 8}});
+
+    var pDx = board.create('point', [1, function() {return pB.Y();}], {visible: false});
+    var pDy = board.create('point', [1, function() {return pB.Y() + sliderA.Value();}], {visible: false});
+
+    var sDx = board.create('segment', [pB, pDx], {name: "", withLabel: true, strokeOpacity: 0.4});
+    var sDy = board.create('segment', [pDx, pDy], {name: "\\[m\\]", withLabel: true, strokeOpacity: 0.4});
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

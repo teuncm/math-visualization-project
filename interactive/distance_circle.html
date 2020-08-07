@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {});
+
+    var c1M = board.create('point', [0, 0], {fixed: false, highlight: true, name: "M", snapSizeX: 1/2, snapSizeY: 1/2, snapToGrid: true});
+    var c1R = board.create('point', [4, 0], {name: "", fixed: false, highlight: true, snapSizeX: 1/2, snapSizeY: 1/2, snapToGrid: true});
+    var c1 = board.create('circle', [c1M, c1R]);
+    var sR = board.create('segment', [c1M, c1R], {name: "r", withLabel: true, opacity: 0.4});
+
+    /* Group M and r, but allow r to move independently. */
+    var grp = board.create('group', [c1M, c1R]);
+    grp.removeTranslationPoint(c1R);
+
+    var pA = board.create('point', [4, -5], {name: 'A', fixed: false, highlight: true, snapSizeX: 1/10, snapSizeY: 1/10, snapToGrid: true});
+
+    var l1 = board.create('line', [c1M, pA]);
+
+    var i1 = board.create('intersection', [c1, l1, 0], {name: "", size: 0});
+    var sDistance = board.create('segment', [pA, i1], {name: "d(A,c)", withLabel: true});
+};
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>

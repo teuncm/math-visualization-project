@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" />
+<link rel="stylesheet" type="text/css" href="../css/jsx_style.css"/>
+<script type="text/javascript" charset="UTF-8"
+    src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+function initBoard() {
+    var board = JXG.JSXGraph.initBoard('jxgbox0', {});
+
+    var origin = board.create('point', [0, 0], {visible: false, name: "0"});
+
+    var sliderT = board.create('slider', [[-3.8, -5], [3.8, -5], [0, 0, 2*Math.PI]], {withLabel: true, name: "t", fixed: false, highlight: true});
+
+    var r_t = board.create('curve', [x_t, y_t,
+        0, 2*Math.PI], {strokeOpacity: 0.3}
+    );
+
+    var pRt = board.create("point", [function() {return x_t(sliderT.Value());}, function() {return y_t(sliderT.Value());}],
+        {name: "P", visible: true, fillColor: "black", highlight: true});
+    var pVt = board.create("point", [function() {return pRt.X() + x_p_t(sliderT.Value());}, function() {return pRt.Y() + y_p_t(sliderT.Value());}],
+        {visible: false});
+
+    var vR = board.create("arrow", [origin, pRt], {name: "\\[\\vec{r}(t)\\]", withLabel: true, label: {position: "top"}, strokeOpacity: 0.4, strokeColor: "black"});
+    var vV = board.create("arrow", [pRt, pVt], {name: "\\[\\vec{v}(t)\\]", withLabel: true, label: {position: "top", strokeColor: "red"}, strokeOpacity: 0.5, strokeColor: "red"});
+
+};
+
+var x_t = function(t) {
+    return 3*Math.sin(t);
+}
+
+var x_p_t = function(t) {
+    return 3*Math.cos(t);
+}
+
+var y_t = function(t) {
+    return 2*Math.sin(2*t) + 1;
+}
+
+var y_p_t = function(t) {
+    return 4*Math.cos(2*t);
+}
+
+</script>
+<script type="text/javascript" src="../js/jsx_functions.js"></script>
+</head>
+<body>
+    <div id="jxgbox0" class="jxgbox"></div>
+</body>
+</html>
