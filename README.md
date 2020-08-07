@@ -1,2 +1,2 @@
-# math-visualization-project
-JSXGraph mathematics visualization project.
+# Math visualization project
+JSXGraph high school mathematics visualization project.
