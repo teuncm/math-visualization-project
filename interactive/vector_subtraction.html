@@ -6,7 +6,7 @@
 <script type="text/javascript" charset="UTF-8"
     src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
 <script type="text/javascript" async
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <script>
 function initBoard() {
     var board = JXG.JSXGraph.initBoard('jxgbox0', {});
@@ -20,8 +20,8 @@ function initBoard() {
     var pSum = board.create('point', [function() {return pA.X() + pNegB.X();}, function() {return pA.Y() + pNegB.Y();}], {name: 'C', withLabel: false, fillColor: "blue", highlight: true});
 
     var vA = board.create("arrow", [origin, pA], {name: "\\[\\vec{a}\\]", withLabel: true, label: {position: "top"}, strokeOpacity: 0.5});
-    var vB = board.create("arrow", [origin, pB], {name: "\\[\\vec{b}\\]", withLabel: true, label: {position: "top"}, strokeOpacity: 0.5});
-    var vNegB = board.create("arrow", [origin, pNegB], {name: "\\[\\texttt{-} \\vec{b}\\]", withLabel: true, label: {position: "top", strokeColor: "blue"}, dash: 2, strokeOpacity: 0.3, strokeColor: "blue"});
+    var vB = board.create("arrow", [origin, pB], {name: "\\[\\vec{b}\\]", withLabel: true, label: {position: "top", offset: [0, -20]}, strokeOpacity: 0.5});
+    var vNegB = board.create("arrow", [origin, pNegB], {name: "\\[\\texttt{-} \\vec{b}\\]", withLabel: true, label: {position: "top", strokeColor: "blue", offset: [0, -16]}, dash: 2, strokeOpacity: 0.3, strokeColor: "blue"});
 
     // var vASum = board.create("arrow", [pA, pSum], {name: "\\[\\vec{b}\\]", withLabel: false, label: {position: "top"}, dash: 2, strokeOpacity: 0.3, strokeColor: "blue"});
     var vNegBSum = board.create("arrow", [pNegB, pSum], {name: "\\[\\vec{a}\\]", withLabel: false, label: {position: "top"}, dash: 2, strokeOpacity: 0.3, strokeColor: "blue"});

@@ -6,7 +6,7 @@
 <script type="text/javascript" charset="UTF-8"
     src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
 <script type="text/javascript" async
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <script>
 function initBoard() {
     JXG.Options.axis.strokeOpacity = 0.1;
@@ -48,7 +48,7 @@ function initBoard() {
     var pX = board.create('point', [function() {return Math.cos(theta.Value());}, 0], {withLabel: false, fillColor: "black", highlight: true, visible: true});
     var pY = board.create('point', [0, function() {return Math.sin(theta.Value());}], {withLabel: false, fillColor: "black", highlight: true, visible: true});
     var sSin = board.create('segment', [pA, pX], {name: "\\[sin(θ)\\]", withLabel: true, opacity: 0.3});
-    var sCos = board.create('segment', [pX, origin], {name: "\\[cos(θ)\\]", withLabel: true, label: {position: "top", offset: [-5, 1]}, opacity: 0.3});
+    var sCos = board.create('segment', [pX, origin], {name: "\\[cos(θ)\\]", withLabel: true, label: {position: "top", offset: [-8, -16]}, opacity: 0.3});
     var sSin2 = board.create('segment', [pA, pY], {withLabel: false, dash: 2, opacity: 0.3});
     var sCos2 = board.create('segment', [pY, origin], {withLabel: false, dash: 2, opacity: 0.3});
 

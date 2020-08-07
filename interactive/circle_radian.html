@@ -6,7 +6,7 @@
 <script type="text/javascript" charset="UTF-8"
     src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js"></script>
 <script type="text/javascript" async
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <script>
 function initBoard() {
     JXG.Options.axis.strokeOpacity = 0.1;
@@ -21,7 +21,7 @@ function initBoard() {
     var cUnit = board.create('circle', [origin, rUnit], {strokeColor: "black"});
 
     var initAngle = 1;
-    
+
     var pA = board.create('glider', [Math.cos(initAngle), Math.sin(initAngle), cUnit], {name: 'A', highlight: true, fillColor: "blue"});
     var pReference = board.create('point', [1, 0], {visible: false});
 
